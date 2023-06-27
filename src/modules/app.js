@@ -9,4 +9,6 @@ const todoItems = (title, description, duedate, priority, notes, checklist) => {
     return {getTitle, getDescription, getdueDate, getPriority, getNotes, getChecklist};
 };
 
+
+
 export default todoItems;

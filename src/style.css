@@ -7,6 +7,7 @@
 /*Define Variables*/
 :root{
     --grey: #878f99;
+    --light-blue: #8dc6ff;
 }
 
 body{
@@ -25,6 +26,62 @@ body{
     background-color: var(--grey);
 }
 
+#main{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+}
+
+#main .side-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
 .side-nav > ul {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    align-items: center;
+}
+
+#todo-form{
+    border: 3px solid black;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    gap: 20px;
+    justify-self: center;
+    background-color: var(--light-blue);
+    padding: 20px;
+    font-weight: 900;
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#todo-form .input-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input-container input, .input-container textarea, .input-container fieldset{
+    flex: 1 1 auto;
+}
+
+#project-form{
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: fixed;
+    visibility: hidden;
 }

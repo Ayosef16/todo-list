@@ -21,24 +21,24 @@
                 <li>Today</li>
                 <li>Upcoming</li>
                 <li>Anytime</li>
-                <li>Projects</li>
+                <li>Project<ul id="project-list"></ul></li>
             </ul>
-            <button id="btn-add-project">+</button>
+            <button id="btn-show-project-form">+ Add Project</button>
         </div>
-        <form action="/" id="project-form">
-            <div>
+        <form action="/" id="todo-form">
+            <div class="input-container">
                 <label for="title">Title:</label>
                 <input id="title" name="title" placeholder="Choose a title" autofocus type="text">
             </div>
-            <div>
+            <div class="input-container">
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" placeholder="Describe todo item..." rows="4" cols="50"></textarea>
+                <textarea id="description" name="description" placeholder="Describe todo item..." rows="4" cols="30"></textarea>
             </div>
-            <div>
+            <div class="input-container">
                 <label for="duedate">DueDate:</label>
                 <input id="duedate" name="duedate" placeholder="Expiring date" type="date">
             </div>
-            <div>
+            <div class="input-container">
                 <fieldset>
                     <legend>Choose Priority:</legend>
                     <label for="low">Low</label>
@@ -49,11 +49,16 @@
                     <input id="high" name="priority" type="radio" value="high">
                 </fieldset>
             </div>
-            <div>
+            <div class="input-container">
                 <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes" placeholder="Write note..." rows="4" cols="50"></textarea>
+                <textarea id="notes" name="notes" placeholder="Write note..." rows="4" cols="30"></textarea>
             </div>
-            <button type="submit">Add</button>
+            <button type="submit">Add Task</button>
+        </form>
+        <form action="/" id="project-form">
+            <label for="project">Project:</label>
+            <input type="text" placeholder="Project Name" autofocus name="project" id="project">
+            <button type="submit" id="btn-add-project">Add</button>
         </form>
     </main>
 </body>
