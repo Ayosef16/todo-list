@@ -1,4 +1,4 @@
-const todoFactory = (title, description, duedate, priority, notes, checklist) => {
+const todoItems = (title, description, duedate, priority, notes, checklist) => {
     const getTitle = () => title;
     const getDescription = () => description;
     const getdueDate = () => duedate;
@@ -9,4 +9,4 @@ const todoFactory = (title, description, duedate, priority, notes, checklist) =>
     return {getTitle, getDescription, getdueDate, getPriority, getNotes, getChecklist};
 };
 
-export default todoFactory;
+export default todoItems;

@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/Ayosef16/todo-list#readme",
   "devDependencies": {
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
     "webpack": "^5.88.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
   }
 }

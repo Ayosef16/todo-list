@@ -6,8 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <header id="header">
+        <div class="header-logo">Todo League</div>
+    </header>
+    <main id="main">
+        <div class="side-nav">
+            <ul>
+                <li>Inbox</li>
+                <li>Today</li>
+                <li>Upcoming</li>
+                <li>Anytime</li>
+                <li>Projects</li>
+            </ul>
+            <button id="btn-add-project">+</button>
+        </div>
+        <form action="/" id="project-form">
+            <div>
+                <label for="title">Title:</label>
+                <input id="title" name="title" placeholder="Choose a title" autofocus type="text">
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" placeholder="Describe todo item..." rows="4" cols="50"></textarea>
+            </div>
+            <div>
+                <label for="duedate">DueDate:</label>
+                <input id="duedate" name="duedate" placeholder="Expiring date" type="date">
+            </div>
+            <div>
+                <fieldset>
+                    <legend>Choose Priority:</legend>
+                    <label for="low">Low</label>
+                    <input id="low" name="priority" type="radio" value="low" checked>
+                    <label for="medium">Medium</label>
+                    <input id="medium" name="priority" type="radio" value="medium">
+                    <label for="high">High</label>
+                    <input id="high" name="priority" type="radio" value="high">
+                </fieldset>
+            </div>
+            <div>
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" placeholder="Write note..." rows="4" cols="50"></textarea>
+            </div>
+            <button type="submit">Add</button>
+        </form>
+    </main>
 </body>
 </html>

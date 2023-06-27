@@ -1,0 +1,30 @@
+*::before, *::after, * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*Define Variables*/
+:root{
+    --grey: #878f99;
+}
+
+body{
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: 2rem;
+    font-weight: 900;
+    padding: 40px 20px;
+    font-family: 'Monoton', sans-serif;
+    background-color: var(--grey);
+}
+
+.side-nav > ul {
+    list-style: none;
+}
