@@ -1,14 +1,23 @@
+/*Define Variables*/
+:root {
+    --light-grey: #d4d4d4;
+    --grey: #878f99;
+    --light-blue: #8dc6ff;
+    --purple: #8f71ff;
+    --light-purple: #c4bbf0;
+    --white: #f4f4f4;
+    --black: #333;
+    --body-spacing: 40px;
+}
+
 *::before, *::after, * {
     font-family: inherit;
     box-sizing: border-box;
 }
 
-/*Define Variables*/
-:root {
-    --grey: #878f99;
-    --light-blue: #8dc6ff;
-    --white: #f4f4f4;
-    --black: #333;
+html {
+    min-height: 100%;
+    position: relative;
 }
 
 body {
@@ -16,13 +25,14 @@ body {
     font-size: 1.5rem;
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
-    background-color: var(--light-blue);
+    background-color: var(--purple);
     color: var(--white);
     display: grid;
     grid: 
     "header header header header" auto
-    "projects .... task ......" auto / 
-    minmax(150px, 300px) 1fr minmax(250px, 500px) 1fr
+    "projects .... task ........" auto
+    "projects .... .... ......." minmax(350px, auto) / 
+    minmax(150px, 400px) 1fr minmax(300px, 700px) 4fr
 }
 
 #header {
@@ -40,10 +50,8 @@ body {
     grid-area: projects;
     position: relative;
     padding-left: 1.2em;
-}
-
-.todo-list {
-    grid-area: task;
+    background: var(--light-purple);
+    padding-top: var(--body-spacing);
 }
 
 .side-nav-list, .project-list {
@@ -60,7 +68,20 @@ body {
     list-style: circle;
 }
 
-.project-title.title {
+.side-nav-name, .project-name {
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 200ms ease-in-out;
+    transition: opacity 200ms ease-in;
+}
+
+
+.side-nav-name:hover, .project-name:hover {
+    transform: scale(1.05);
+    opacity: .7;
+}
+
+.project-title {
     margin: 0;
     color: var(--black);
 }
@@ -115,31 +136,265 @@ body {
     opacity: 0.7;
 }
 
-#todo-form {
-    border: 3px solid black;
+.btn-task,
+.btn-confirm-task {
+    background: var(--purple);
+    border: var(--purple);
+    color: var(--white);
     border-radius: 1rem;
+    position: absolute;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: opacity 200ms ease-in-out;
+}   
+
+.btn-task {
+    right: 2em;
+    bottom: -1em;
+}
+
+.btn-confirm-task {
+    right: 15px;
+    bottom: 15px;
+}
+
+.btn-task:hover,
+.btn-confirm-task:hover {
+    opacity: .8;
+}
+
+.btn-delete {
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: .7;
+    transition: color 200ms ease-in;
+}
+
+.btn-delete:hover {
+    color: var(--black);
+}
+
+.todo-list {
+    --todo-spacing: 2rem;
+
+    grid-area: task;
+    background: var(--white);
+    color: var(--black);
+    margin-top: var(--body-spacing);
+    padding-bottom: var(--body-spacing);
+}
+
+.todo-header {
+    background: var(--light-grey);
     display: flex;
-    flex-direction: column;
-    width: 500px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    padding: var(--todo-spacing);
+}
+
+.todo-count {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.todo-body {
+    padding: var(--todo-spacing);
+    position: relative;
+}
+
+input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+
+.task {
+    cursor: pointer;
+    position: relative;
+}
+
+.task label {
+    display: inline-flex;
+    align-items: center;
+    gap: .75em;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.task::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: currentColor;
+    right: 0;
+    left: 0;
+    bottom: .5em;
+    opacity: 0.1;
+}
+
+.task label::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    left: 1.5em;
+    right: 0;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 150ms ease-in-out;
+}
+
+.custom-checkbox {
+    --checkbox-size: .75em;
+
+    display: inline-block;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: transform 250ms ease-in-out;
+}
+
+.task:hover .custom-checkbox,
+input[type="checkbox"]:focus + label .custom-checkbox {
+    transform: scale(1.2);
+    color: var(--purple);
+}
+
+input[type="checkbox"]:checked + label .custom-checkbox {
+    background: var(--purple);
+    border-color: var(--purple);
+    box-shadow: inset 0 0 0px 2px var(--white);
+}
+
+input[type="checkbox"]:checked + label {
+    opacity: .5;
+}
+
+input[type="checkbox"]:checked + label::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.delete-container {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: .8rem;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -5.5em;
+    color: var(--white);
+}
+
+#footer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background: var(--grey);
+    font-size: 1rem;
+}
+
+#footer a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+#todo-form {
+    border: 2px solid var(--white);
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .1);
     gap: 20px;
     justify-self: center;
-    background-color: var(--light-blue);
-    padding: 20px;
+    background-color: var(--light-purple);
+    padding: 30px 30px 60px 30px;
     font-weight: 900;
     visibility: hidden;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    align-items: center;
+}
+
+#todo-form .new-task-title {
+    font-size: 2.5rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 #todo-form .input-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
-.input-container input, .input-container textarea, .input-container fieldset{
-    flex: 1 1 auto;
+#todo-form .input-container label {
+    width: 200px;
+    font-size: 1em;
+    font-weight: 500;
 }
+
+#todo-form .input-container input,
+#todo-form .input-container textarea {
+    width: 100%;
+    outline: none;
+    border: 2px solid var(--black);
+    font-size: 1em;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: all 50ms ease-in;
+    background: var(--white);
+}
+
+#todo-form .input-container textarea {
+    resize: none;
+    height: 130px;
+}
+
+#todo-form .input-container .custom-select {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+
+#todo-form .input-container .custom-select select {
+    border: 2px solid var(--black);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    background: var(--white);
+}
+
+#todo-form .input-container .custom-select::before {
+    content: "";
+    position: absolute;
+    top: 19px;
+    right: 14px;
+    border: 8px solid;
+    border-color: var(--light-purple) transparent transparent transparent;
+    pointer-events: none;
+}
+
+#todo-form .input-container input:focus,
+#todo-form .input-container textarea:focus,
+#todo-form .input-container .custom-select select:focus {
+    border: 2px solid var(--purple);
+    opacity: .8;
+}
+
