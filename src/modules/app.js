@@ -10,5 +10,4 @@ const todoItems = (title, description, duedate, priority, notes, checklist) => {
 };
 
 
-
 export default todoItems;

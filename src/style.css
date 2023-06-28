@@ -1,55 +1,121 @@
 *::before, *::after, * {
-    margin: 0;
-    padding: 0;
+    font-family: inherit;
     box-sizing: border-box;
 }
 
 /*Define Variables*/
-:root{
+:root {
     --grey: #878f99;
     --light-blue: #8dc6ff;
+    --white: #f4f4f4;
+    --black: #333;
 }
 
-body{
-    font-size: 20px;
+body {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
     font-family: 'Roboto', sans-serif;
+    background-color: var(--light-blue);
+    color: var(--white);
+    display: grid;
+    grid: 
+    "header header header header" auto
+    "projects .... task ......" auto / 
+    minmax(150px, 300px) 1fr minmax(250px, 500px) 1fr
 }
 
-#header{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    font-size: 2rem;
+#header {
+    grid-area: header;
+    font-size: calc(3vw + 2rem);
     font-weight: 900;
     padding: 40px 20px;
     font-family: 'Monoton', sans-serif;
     background-color: var(--grey);
+    letter-spacing: 2px;
+    color: rgba(0, 0, 0, .4);
 }
 
-#main{
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    align-items: center;
-}
-
-#main .side-nav{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.side-nav {
+    grid-area: projects;
     position: relative;
+    padding-left: 1.2em;
 }
 
-.side-nav > ul {
+.todo-list {
+    grid-area: task;
+}
+
+.side-nav-list, .project-list {
+    line-height: 1.7;
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+.side-nav-list {
     list-style: none;
+}
+
+.project-list { 
+    list-style: circle;
+}
+
+.project-title.title {
+    margin: 0;
+    color: var(--black);
+}
+
+.active-project { 
+    font-weight: 700;
+}
+
+#project {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    color: inherit;
+    font-size: inherit;
+    outline: none;
+    transition: border-bottom 150ms ease-in;
+    order: 2;
+}
+
+#project::placeholder {
+    color: inherit;
+}
+
+#project:focus {
+    border-bottom-width: 3px;
+}
+
+#project:focus::placeholder {
+    opacity: .2;
+}
+
+#project-form {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+}
+
+.btn {
+    cursor: pointer;
+    background: 0;
+    padding: 0;
+    border: 0;
+    color: inherit;
+}
+
+.btn-project {
     font-size: 1.5rem;
     font-weight: 900;
-    align-items: center;
+    margin-right: .25em;
+    transition: opacity 250ms ease-in;
 }
 
-#todo-form{
+.btn-project:hover {
+    opacity: 0.7;
+}
+
+#todo-form {
     border: 3px solid black;
     border-radius: 1rem;
     display: flex;
@@ -67,7 +133,7 @@ body{
     transform: translate(-50%, -50%);
 }
 
-#todo-form .input-container{
+#todo-form .input-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,12 +142,4 @@ body{
 
 .input-container input, .input-container textarea, .input-container fieldset{
     flex: 1 1 auto;
-}
-
-#project-form{
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    position: fixed;
-    visibility: hidden;
 }

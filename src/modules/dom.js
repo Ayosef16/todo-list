@@ -1,7 +1,19 @@
-function addProject(projectname, projects) {
-    let newproject = document.createElement('li');
-    newproject.textContent = projectname;
-    projects.appendChild(newproject);
+function addProjectDom(projectlist, projectdom) {
+    let length = projectlist.length;
+    for (let i = 0; i < length; i++) {
+        let newproject = document.createElement('li');
+        newproject.textContent = projectlist[i];
+        projectdom.appendChild(newproject);
+    }
 }
 
-export { addProject };
+function clearProjectDom(projectdom) {
+    projectdom.innerHTML = '';
+}
+
+function addTaskButton(projectdom) {
+    let button = document.createElement('button');
+    button.textContent = '+ Add Task';
+}
+
+export { addProjectDom, clearProjectDom };
