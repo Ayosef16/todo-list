@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <title>Todo League</title>
     <script src="main.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
         </ul>
 
         <form action="/" method="post" id="project-form">
-            <input type="text" placeholder="New Project Name" name="project" id="project" aria-label="new project name">
+            <input type="text" placeholder="New Project Name" name="project" id="project" aria-label="new project name" required>
             <button type="submit" class="btn btn-project" aria-label="create new project">+</button>
         </form>
     </div>
@@ -104,7 +104,7 @@
         </div>
         <div class="input-container">
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" placeholder="Write note..." rows="4" cols="30"></textarea>
+            <textarea id="notes" name="notes" placeholder="Write note..."></textarea>
         </div>
         <button type="submit" class="btn-confirm-task">Confirm</button>
     </form>
