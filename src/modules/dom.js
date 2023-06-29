@@ -1,19 +1,15 @@
-function addProjectDom(projectlist, projectdom) {
-    let length = projectlist.length;
-    for (let i = 0; i < length; i++) {
+function addProjectDom(projectarray, projectdom) {
+    projectarray.forEach(project => {
         let newproject = document.createElement('li');
-        newproject.textContent = projectlist[i];
+        newproject.textContent = project.name;
         projectdom.appendChild(newproject);
+    })
+}
+
+function clear(name) {
+    while (name.firstChild) {
+        name.removeChild(name.firstChild);
     }
 }
 
-function clearProjectDom(projectdom) {
-    projectdom.innerHTML = '';
-}
-
-function addTaskButton(projectdom) {
-    let button = document.createElement('button');
-    button.textContent = '+ Add Task';
-}
-
-export { addProjectDom, clearProjectDom };
+export { addProjectDom, clear };

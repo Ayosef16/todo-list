@@ -1,28 +1,38 @@
-import todoItems from './modules/app';
-import { addProjectDom, clearProjectDom } from './modules/dom';
+import { newTodo, newProject} from './modules/app';
+import { addProjectDom, clear } from './modules/dom';
 import 'normalize.css';
 import './style.css';
 
 let projectlist = [];
-let todo1 = todoItems('Eat', 'Do it with wife', '26/06/2023', 'High', '', false);
-let todo2 = todoItems('Sex', 'Do it with wife butt', '28/06/2023', 'High', '', false);
+let todolist = [];
+let todo1 = newTodo('Eat', 'Do it with wife', '26/06/2023', 'High', 'asasasasa');
+let todo2 = newTodo('Sex', 'Do it with wife butt', '28/06/2023', 'High', 'asdasdasdad');
 
 const todoForm = document.querySelector('#todo-form');
 const projectForm = document.querySelector('#project-form');
-const buttonShowProjectForm = document.querySelector('#btn-show-project-form');
-const projectDom = document.querySelector('#project-list');
-
-buttonShowProjectForm.addEventListener('click', () => {
-    projectForm.style.visibility = 'visible';
-})
+const projectDomList = document.querySelector('.project-list');
+const buttonTask = document.querySelector('.btn-task');
 
 projectForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    projectlist.push(projectForm.project.value);
+    let project = newProject(projectForm.project.value);
+    console.log(project);
+    projectlist.push(project);
     projectForm.project.value = '';
-    projectForm.style.visibility = 'hidden';
-    clearProjectDom(projectDom);
-    addProjectDom(projectlist, projectDom);
+    clear(projectDomList);
+    addProjectDom(projectlist, projectDomList);
     console.log(projectlist);
+})
+
+buttonTask.addEventListener('click', () => {
+    todoForm.style.visibility = 'visible';
+})
+
+todoForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let task = newTodo(todoForm.title.value, todoForm.description.value, todoForm.duedate.value, todoForm.priority.value, todoForm.notes.value);
+    console.log(task);
+    todolist.push(task);
+    todoForm.style.visibility = 'hidden';
 })
 
