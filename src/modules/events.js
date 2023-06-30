@@ -1,4 +1,4 @@
-import { saveProject, renderProject } from "./dom";
+import { saveProject, render } from "./dom";
 import { newProject, getLocalStorageInfo } from "./project";
 import { newTodo, todolist } from "./todo";
 
@@ -21,7 +21,7 @@ function createEvents() {
         getLocalStorageInfo.projectlist.push(project);
         projectForm.project.value = '';
         saveProject();
-        renderProject();
+        render();
         console.log(getLocalStorageInfo.projectlist);
     });
 
@@ -37,16 +37,18 @@ function createEvents() {
         todoForm.style.visibility = 'hidden';
     });
 
+    // Add active project status to the project list
     projectList.addEventListener('click', (event) => {
         if (event.target.tagName.toLowerCase() === 'li') {
             sideNavList.forEach(item => item.classList.remove('active-project'));
             getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
             console.log(getLocalStorageInfo.activeProjectId);
             saveProject();
-            renderProject();
+            render();
         }
     })
 
+    // Add and remove active project status on the first section of the side nav
     sideNavList.forEach(sidenavname => sidenavname.addEventListener('click', () => {
         sideNavList.forEach(item => item.classList.remove('active-project'));
         sidenavname.classList.add('active-project');
@@ -54,7 +56,7 @@ function createEvents() {
         getLocalStorageInfo.activeProjectId = sidenavname.dataset.listId;
         console.log(getLocalStorageInfo.activeProjectId);
         saveProject();
-        renderProject();
+        render();
     }))
 
     buttonDeleteProject.addEventListener('click', () => {
@@ -62,7 +64,7 @@ function createEvents() {
         getLocalStorageInfo.projectlist = temp;
         getLocalStorageInfo.activeProjectId = null;
         saveProject();
-        renderProject();
+        render();
     })
 }
 
