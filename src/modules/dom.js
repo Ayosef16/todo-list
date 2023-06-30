@@ -1,4 +1,4 @@
-import { projectlist } from "./project";
+import { getLocalStorageInfo } from "./project";
 
 // Define local storage keys
 const LS_PROJECT_KEYS = 'project.list';
@@ -10,8 +10,11 @@ const projectList = document.querySelector('.project-list');
 // Make a function to render the new project to the website
 function renderProject() {
     clear(projectList);
-    projectlist.forEach(project => {
+    getLocalStorageInfo.projectlist.forEach(project => {
         let newproject = document.createElement('li');
+        if (project.id === getLocalStorageInfo.activeProjectId) {
+            newproject.classList.add('active-project')
+        }
         newproject.classList.add('project-name');
         newproject.textContent = project.name;
         newproject.dataset.listId = project.id;
@@ -21,8 +24,8 @@ function renderProject() {
 
 // Make a function to save information into the local storage
 function saveProject() {
-    let newsave = JSON.stringify(projectlist);
-    localStorage.setItem(LS_PROJECT_KEYS, newsave);
+    localStorage.setItem(LS_PROJECT_KEYS, JSON.stringify(getLocalStorageInfo.projectlist));
+    localStorage.setItem(LS_ACTIVE_PROJECT, JSON.stringify(getLocalStorageInfo.activeProjectId));
 }
 
 // Make a function to clear dom elements

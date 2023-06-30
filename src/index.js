@@ -1,12 +1,9 @@
-import { newTodo, newProject} from './modules/app';
-import { addProjectDom, clear } from './modules/dom';
+import { newProject, getLocalStorageInfo } from './modules/project';
+import { newTodo } from './modules/todo';
+import { renderProject, saveProject } from './modules/dom';
 import 'normalize.css';
 import './style.css';
 
-let projectlist = [];
-let todolist = [];
-let todo1 = newTodo('Eat', 'Do it with wife', '26/06/2023', 'High', 'asasasasa');
-let todo2 = newTodo('Sex', 'Do it with wife butt', '28/06/2023', 'High', 'asdasdasdad');
 
 const todoForm = document.querySelector('#todo-form');
 const projectForm = document.querySelector('#project-form');
@@ -17,11 +14,11 @@ projectForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let project = newProject(projectForm.project.value);
     console.log(project);
-    projectlist.push(project);
+    getLocalStorageInfo.projectlist.push(project);
     projectForm.project.value = '';
-    clear(projectDomList);
-    addProjectDom(projectlist, projectDomList);
-    console.log(projectlist);
+    saveProject();
+    renderProject();
+    console.log(getLocalStorageInfo.projectlist);
 })
 
 buttonTask.addEventListener('click', () => {
@@ -36,3 +33,4 @@ todoForm.addEventListener('submit', (event) => {
     todoForm.style.visibility = 'hidden';
 })
 
+renderProject();

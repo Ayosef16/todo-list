@@ -1,8 +1,14 @@
 import { LS_PROJECT_KEYS, LS_ACTIVE_PROJECT } from "./dom";
 
+
 // Initialize varibles project list and active project id
-let projectlist = JSON.parse(localStorage.getItem(LS_PROJECT_KEYS)) || [];
-let activeProjectId = JSON.parse(localStorage.getItem(LS_ACTIVE_PROJECT));
+function retrieveLocalStorageInfo () {
+    let projectlist = JSON.parse(localStorage.getItem('project.list')) || [];
+    let activeProjectId = JSON.parse(localStorage.getItem('active.project'));
+    return { projectlist, activeProjectId };
+}
+
+const getLocalStorageInfo = retrieveLocalStorageInfo(); 
 
 // Create a factory function for new projects
 const newProject = (name) => {
@@ -11,4 +17,4 @@ const newProject = (name) => {
     return {name, id, tasks}
 }
 
-export { newProject, projectlist, activeProjectId };
+export { newProject, getLocalStorageInfo };
