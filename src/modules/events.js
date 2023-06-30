@@ -9,7 +9,10 @@ function createEvents() {
     const todoForm = document.querySelector('#todo-form');
     const projectForm = document.querySelector('#project-form');
     const projectList = document.querySelector('.project-list');
+    const sideNavList = document.querySelectorAll('.side-nav-name');
     const buttonTask = document.querySelector('.btn-task');
+    const buttonDeleteProject = document.querySelector('#btn-delete-project'); 
+    const projectTitle = document.querySelector('#js-project-title');
 
     projectForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -36,10 +39,30 @@ function createEvents() {
 
     projectList.addEventListener('click', (event) => {
         if (event.target.tagName.toLowerCase() === 'li') {
+            sideNavList.forEach(item => item.classList.remove('active-project'));
             getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
+            console.log(getLocalStorageInfo.activeProjectId);
             saveProject();
             renderProject();
         }
+    })
+
+    sideNavList.forEach(sidenavname => sidenavname.addEventListener('click', () => {
+        sideNavList.forEach(item => item.classList.remove('active-project'));
+        sidenavname.classList.add('active-project');
+        projectTitle.textContent = sidenavname.textContent;
+        getLocalStorageInfo.activeProjectId = sidenavname.dataset.listId;
+        console.log(getLocalStorageInfo.activeProjectId);
+        saveProject();
+        renderProject();
+    }))
+
+    buttonDeleteProject.addEventListener('click', () => {
+        let temp = getLocalStorageInfo.projectlist.filter(project => project.id !== getLocalStorageInfo.activeProjectId);
+        getLocalStorageInfo.projectlist = temp;
+        getLocalStorageInfo.activeProjectId = null;
+        saveProject();
+        renderProject();
     })
 }
 

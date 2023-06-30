@@ -3,5 +3,9 @@ import createEvents from './modules/events';
 import 'normalize.css';
 import './style.css';
 
-createEvents();
 renderProject();
+createEvents();
+
+// const home = document.querySelectorAll('.side-nav-name');
+
+// home.forEach(title => console.log(title.textContent));
