@@ -1,11 +1,5 @@
+// Create factory function for new todos
 const newTodo = (title, description, duedate, priority, notes) => {
-    // const getTitle = () => title;
-    // const getDescription = () => description;
-    // const getdueDate = () => duedate;
-    // const getPriority = () => priority;
-    // const getNotes = () => notes;
-    // const getChecklist = () => checklist;
-    // return {getTitle, getDescription, getdueDate, getPriority, getNotes, getChecklist};
     let id = Date.now().toString();
     let checklist = false;
     return {title, description, duedate, priority, notes, checklist, id}

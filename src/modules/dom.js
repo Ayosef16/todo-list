@@ -7,6 +7,7 @@ const LS_ACTIVE_PROJECT = 'active.project';
 // Get dom variables
 const projectList = document.querySelector('.project-list');
 const todoList = document.querySelector('#todo-list');
+const todoContainer = document.querySelector('#todo-container');
 const todoCount = document.querySelector('#todo-count');
 const projectTitle = document.querySelector('#js-project-title');
 const todoTemplate = document.querySelector('#todo-template');
@@ -32,15 +33,16 @@ function renderTodoContainer() {
     console.log(getLocalStorageInfo.projectlist);
     console.log(getLocalStorageInfo.activeProjectId);
     const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
+    console.log(activeProject);
     // If active project is undefined, it means is not on the project list, it's inbox, today or week
     if (activeProject === undefined) {
         // If there is not active project
         if (getLocalStorageInfo.activeProjectId === null) {
-            todoList.style.visibility = 'hidden';
+            todoList.style.display = 'none';
         }
         // If there an active project that's inbox, today or week
         else {
-            todoList.style.visibility = 'visible';
+            todoList.style.display = '';
             return;
         }
     }
@@ -48,13 +50,15 @@ function renderTodoContainer() {
     else {
         // Check if there is an active project
         if (getLocalStorageInfo.activeProjectId === null) {
-            todoList.style.visibility = 'hidden';
+            todoList.style.display = 'none';
         }
         // This is when there a an active projects
         else {
-            todoList.style.visibility = 'visible';
+            todoList.style.display = '';
             projectTitle.textContent = activeProject.name;
             renderTodoCount(activeProject);
+            clear(todoContainer);
+            renderTodo(activeProject);
         }
     }
 }
