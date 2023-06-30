@@ -14,6 +14,7 @@ function createEvents() {
     const buttonDeleteProject = document.querySelector('#btn-delete-project'); 
     const projectTitle = document.querySelector('#js-project-title');
 
+    // Handle project form
     projectForm.addEventListener('submit', (event) => {
         event.preventDefault();
         let project = newProject(projectForm.project.value);
@@ -25,10 +26,12 @@ function createEvents() {
         console.log(getLocalStorageInfo.projectlist);
     });
 
+    // Show todo form when click on button
     buttonTask.addEventListener('click', () => {
         todoForm.style.visibility = 'visible';
     });
 
+    // Event to handle todo form
     todoForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const task = newTodo(todoForm.title.value, todoForm.description.value, todoForm.duedate.value, todoForm.priority.value, todoForm.notes.value);
@@ -38,8 +41,20 @@ function createEvents() {
         activeProject.tasks.push(task);
         console.log(activeProject);
         todoForm.style.visibility = 'hidden';
+        todoForm.title.value = '';
+        todoForm.description.value = '';
+        todoForm.duedate.value = '';
+        todoForm.priority.value = 'Select';
+        todoForm.notes.value = '';
         saveProject();
         render();
+    });
+
+    // Add support for escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            todoForm.style.visibility = 'hidden';
+        }
     });
 
     // Add active project status to the project list
@@ -52,7 +67,7 @@ function createEvents() {
             saveProject();
             render();
         }
-    })
+    });
 
     // Add and remove active project status on the first section of the side nav
     sideNavList.forEach(sidenavname => sidenavname.addEventListener('click', () => {
@@ -64,8 +79,9 @@ function createEvents() {
         console.log(getLocalStorageInfo.activeProjectId);
         saveProject();
         render();
-    }))
-
+    }));
+    
+    // Event for deleting only the projects
     buttonDeleteProject.addEventListener('click', () => {
         sideNavList.forEach(item => item.classList.remove('active-project'));
         let temp = getLocalStorageInfo.projectlist.filter(project => project.id !== getLocalStorageInfo.activeProjectId);
@@ -73,7 +89,7 @@ function createEvents() {
         getLocalStorageInfo.activeProjectId = null;
         saveProject();
         render();
-    })
+    });
 }
 
 export default createEvents;

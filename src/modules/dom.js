@@ -65,7 +65,7 @@ function renderTodoContainer() {
 
 // Make a function to render todo count
 function renderTodoCount(project) {
-    const incompleteTodo = project.tasks.filter(task => !task.checklist);
+    const incompleteTodo = project.tasks.filter(task => !task.checklist).length;
     if (incompleteTodo === 1) {
         todoCount.textContent = `${incompleteTodo} task left`;
     }
@@ -85,7 +85,7 @@ function renderTodo(project) {
         const label = newTask.querySelector('label');
         console.log(label);
         label.htmlFor = task.id;
-        label.textContent = task.title;
+        label.append(task.title);
         todoContainer.appendChild(newTask);
     })
 }

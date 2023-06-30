@@ -207,12 +207,11 @@ body {
 }
 
 input[type="checkbox"] {
-    opacity: 0;
+    /* opacity: 0; */
     position: absolute;
 }
 
 .task {
-    cursor: pointer;
     position: relative;
 }
 
@@ -222,6 +221,7 @@ input[type="checkbox"] {
     gap: .75em;
     position: relative;
     margin-bottom: 1em;
+    cursor: pointer;
 }
 
 .task::after {
