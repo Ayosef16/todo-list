@@ -77,14 +77,16 @@ function renderTodoCount(project) {
 // Make a function to render tasks
 function renderTodo(project) {
     project.tasks.forEach(task => {
-        const newTask = document.importNode(todoTemplate.textContent, true);
-        const checkbox = newTask.querySelector('input[type=checkbox]');
+        const newTask = document.importNode(todoTemplate.content, true);
+        const checkbox = newTask.querySelector('input');
         console.log(checkbox);
         checkbox.id = task.id;
-        checkbox.checked = project
+        checkbox.checked = task.checklist;
         const label = newTask.querySelector('label');
         console.log(label);
-        label.Htmlfor = task.id;
+        label.htmlFor = task.id;
+        label.textContent = task.title;
+        todoContainer.appendChild(newTask);
     })
 }
 

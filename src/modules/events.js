@@ -32,9 +32,14 @@ function createEvents() {
     todoForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const task = newTodo(todoForm.title.value, todoForm.description.value, todoForm.duedate.value, todoForm.priority.value, todoForm.notes.value);
+        const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
+        console.log(activeProject);
         console.log(task);
-        todolist.push(task);
+        activeProject.tasks.push(task);
+        console.log(activeProject);
         todoForm.style.visibility = 'hidden';
+        saveProject();
+        render();
     });
 
     // Add active project status to the project list
