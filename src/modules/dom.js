@@ -8,6 +8,7 @@ const LS_ACTIVE_PROJECT = 'active.project';
 const projectList = document.querySelector('.project-list');
 const todoList = document.querySelector('#todo-list');
 const projectTitle = document.querySelector('#js-project-title');
+
 // Make a function to render the new project to the website
 function renderProject() {
     clear(projectList);
@@ -24,7 +25,7 @@ function renderProject() {
 }
 
 // Make a function to render todos
-function renderTodo() {
+function renderTodoContainer() {
     // Get current active project
     const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
     if (getLocalStorageInfo.activeProjectId === null) {
@@ -40,7 +41,7 @@ function renderTodo() {
 function render() {
     clear(projectList);
     renderProject();
-    renderTodo();
+    renderTodoContainer();
 }
 
 // Make a function to save information into the local storage
