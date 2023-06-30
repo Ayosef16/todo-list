@@ -6,14 +6,15 @@ const LS_ACTIVE_PROJECT = 'active.project';
 
 // Get dom variables
 const projectList = document.querySelector('.project-list');
-
+const projectTitle = document.querySelector('#js-project-title');
 // Make a function to render the new project to the website
 function renderProject() {
     clear(projectList);
     getLocalStorageInfo.projectlist.forEach(project => {
         let newproject = document.createElement('li');
         if (project.id === getLocalStorageInfo.activeProjectId) {
-            newproject.classList.add('active-project')
+            newproject.classList.add('active-project');
+            projectTitle.textContent = project.name;
         }
         newproject.classList.add('project-name');
         newproject.textContent = project.name;

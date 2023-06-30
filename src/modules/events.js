@@ -1,27 +1,25 @@
-import dom from "./dom";
-import { newProject, retrieveLocalStorageInfo } from "./project";
+import { saveProject, renderProject } from "./dom";
+import { newProject, getLocalStorageInfo } from "./project";
 import { newTodo, todolist } from "./todo";
 
 // Make a function to create event listeners
 function createEvents() {
+
+    // Define dom variables
     const todoForm = document.querySelector('#todo-form');
     const projectForm = document.querySelector('#project-form');
     const projectList = document.querySelector('.project-list');
     const buttonTask = document.querySelector('.btn-task');
 
     projectForm.addEventListener('submit', (event) => {
-
-        // Prevents the form from submitting
         event.preventDefault();
-        // Get the project name from the form
-        const projectname = projectForm.project.value;
-        // Check that the project name is not blank
-        if (projectname === '') return;
-        const project = newProject(projectname);
-        retrieveLocalStorageInfo.projectlist.push(project);
+        let project = newProject(projectForm.project.value);
+        console.log(project);
+        getLocalStorageInfo.projectlist.push(project);
         projectForm.project.value = '';
-        dom.saveProject();
-        dom.renderProject();
+        saveProject();
+        renderProject();
+        console.log(getLocalStorageInfo.projectlist);
     });
 
     buttonTask.addEventListener('click', () => {
@@ -37,14 +35,10 @@ function createEvents() {
     });
 
     projectList.addEventListener('click', (event) => {
-        console.log(projectList);
-        console.log(retrieveLocalStorageInfo.getActiveProjectId());
         if (event.target.tagName.toLowerCase() === 'li') {
-            console.log(event.target.dataset.listId);
-            retrieveLocalStorageInfo.changeActiveProjectId(event.target.dataset.listId);
-            console.log(retrieveLocalStorageInfo.getActiveProjectId());
-            dom.saveProject();
-            dom.renderProject();
+            getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
+            saveProject();
+            renderProject();
         }
     })
 }
