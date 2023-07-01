@@ -12,7 +12,8 @@ function createEvents() {
     const projectList = document.querySelector('.project-list');
     const sideNavList = document.querySelectorAll('.side-nav-name');
     const buttonTask = document.querySelector('.btn-task');
-    const buttonDeleteProject = document.querySelector('#btn-delete-project'); 
+    const buttonDeleteProject = document.querySelector('#btn-delete-project');
+    const buttonClearTodo = document.querySelector('#btn-clear-todo');
     const projectTitle = document.querySelector('#js-project-title');
 
     // Handle project form
@@ -107,6 +108,14 @@ function createEvents() {
         saveProject();
         render();
     });
+
+    // Event for clearing todo task mark as complete
+    buttonClearTodo.addEventListener('click', () => {
+        const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
+        activeProject.tasks = activeProject.tasks.filter(task => !task.checklist);
+        saveProject();
+        render();
+    })
 }
 
 export default createEvents;
