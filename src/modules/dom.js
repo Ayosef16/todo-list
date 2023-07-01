@@ -30,37 +30,16 @@ function renderProject() {
 // Make a function to render todos
 function renderTodoContainer() {
     // Get current active project
+    clear(todoContainer);
     console.log(getLocalStorageInfo.projectlist);
     console.log(getLocalStorageInfo.activeProjectId);
     const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
     console.log(activeProject);
-    // If active project is undefined, it means is not on the project list, it's inbox, today or week
-    if (activeProject === undefined) {
-        // If there is not active project
-        if (getLocalStorageInfo.activeProjectId === null) {
-            todoList.style.display = 'none';
-        }
-        // If there an active project that's inbox, today or week
-        else {
-            todoList.style.display = '';
-            return;
-        }
-    }
-    // This is the case when the active project is on the project list
-    else {
-        // Check if there is an active project
-        if (getLocalStorageInfo.activeProjectId === null) {
-            todoList.style.display = 'none';
-        }
-        // This is when there a an active projects
-        else {
-            todoList.style.display = '';
-            projectTitle.textContent = activeProject.name;
-            renderTodoCount(activeProject);
-            clear(todoContainer);
-            renderTodo(activeProject);
-        }
-    }
+    // Check when the active project is inbox, today, week
+    if (activeProject === undefined) return;
+    projectTitle.textContent = activeProject.name;
+    renderTodoCount(activeProject);
+    renderTodo(activeProject);
 }
 
 // Make a function to render todo count
@@ -90,7 +69,6 @@ function renderTodo(project) {
 
 // Make a function to clear, render projects and render task
 function render() {
-    clear(projectList);
     renderProject();
     renderTodoContainer();
 }
@@ -109,4 +87,4 @@ function clear(name) {
 }
 
 
-export { render, saveProject, clear, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };
+export { render, saveProject, clear, renderTodoCount, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };

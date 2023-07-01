@@ -1,4 +1,4 @@
-import { saveProject, render } from "./dom";
+import { saveProject, render, renderTodoCount } from "./dom";
 import { newProject, getLocalStorageInfo } from "./project";
 import { newTodo } from "./todo";
 
@@ -59,11 +59,15 @@ function createEvents() {
     });
 
     // Change the checklist status on the todo
-    // todoList.addEventListener('change', (event) => {
-    //     if (event.target.tagName.toLowerCase() === 'input') {
-    //         const activeProject = getLocalStorageInfo.projectlist.find()
-    //     }
-    // })
+    todoList.addEventListener('change', (event) => {
+        if (event.target.tagName.toLowerCase() === 'input') {
+            const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
+            const currentTask = activeProject.tasks.find(todo => todo.id === event.target.id);
+            currentTask.checklist = event.target.checked;
+            saveProject();
+            renderTodoCount(activeProject);
+        }
+    })
 
     // Add active project status to the project list
     projectList.addEventListener('click', (event) => {
@@ -71,6 +75,7 @@ function createEvents() {
             sideNavList.forEach(item => item.classList.remove('active-project'));
             buttonTask.style.display = '';
             buttonDeleteProject.style.display = '';
+            todoList.style.display = '';
             getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
             console.log(getLocalStorageInfo.activeProjectId);
             saveProject();
@@ -83,6 +88,7 @@ function createEvents() {
         sideNavList.forEach(item => item.classList.remove('active-project'));
         buttonTask.style.display = 'none';
         buttonDeleteProject.style.display = 'none';
+        todoList.style.display = '';
         sidenavname.classList.add('active-project');
         projectTitle.textContent = sidenavname.textContent;
         getLocalStorageInfo.activeProjectId = sidenavname.dataset.listId;
@@ -97,6 +103,7 @@ function createEvents() {
         let temp = getLocalStorageInfo.projectlist.filter(project => project.id !== getLocalStorageInfo.activeProjectId);
         getLocalStorageInfo.projectlist = temp;
         getLocalStorageInfo.activeProjectId = null;
+        todoList.style.display = 'none';
         saveProject();
         render();
     });
