@@ -79,11 +79,9 @@ function renderTodo(project) {
     project.tasks.forEach(task => {
         const newTask = document.importNode(todoTemplate.content, true);
         const checkbox = newTask.querySelector('input');
-        console.log(checkbox);
         checkbox.id = task.id;
         checkbox.checked = task.checklist;
         const label = newTask.querySelector('label');
-        console.log(label);
         label.htmlFor = task.id;
         label.append(task.title);
         todoContainer.appendChild(newTask);

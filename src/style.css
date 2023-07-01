@@ -207,7 +207,7 @@ body {
 }
 
 input[type="checkbox"] {
-    /* opacity: 0; */
+    opacity: 0;
     position: absolute;
 }
 
@@ -259,7 +259,7 @@ input[type="checkbox"] {
     transition: transform 250ms ease-in-out;
 }
 
-.task:hover .custom-checkbox,
+.task label:hover .custom-checkbox,
 input[type="checkbox"]:focus + label .custom-checkbox {
     transform: scale(1.2);
     color: var(--purple);

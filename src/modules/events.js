@@ -7,6 +7,7 @@ function createEvents() {
 
     // Define dom variables
     const todoForm = document.querySelector('#todo-form');
+    const todoList = document.querySelector('#todo-list');
     const projectForm = document.querySelector('#project-form');
     const projectList = document.querySelector('.project-list');
     const sideNavList = document.querySelectorAll('.side-nav-name');
@@ -57,11 +58,19 @@ function createEvents() {
         }
     });
 
+    // Change the checklist status on the todo
+    // todoList.addEventListener('change', (event) => {
+    //     if (event.target.tagName.toLowerCase() === 'input') {
+    //         const activeProject = getLocalStorageInfo.projectlist.find()
+    //     }
+    // })
+
     // Add active project status to the project list
     projectList.addEventListener('click', (event) => {
         if (event.target.tagName.toLowerCase() === 'li') {
             sideNavList.forEach(item => item.classList.remove('active-project'));
             buttonTask.style.display = '';
+            buttonDeleteProject.style.display = '';
             getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
             console.log(getLocalStorageInfo.activeProjectId);
             saveProject();
@@ -73,6 +82,7 @@ function createEvents() {
     sideNavList.forEach(sidenavname => sidenavname.addEventListener('click', () => {
         sideNavList.forEach(item => item.classList.remove('active-project'));
         buttonTask.style.display = 'none';
+        buttonDeleteProject.style.display = 'none';
         sidenavname.classList.add('active-project');
         projectTitle.textContent = sidenavname.textContent;
         getLocalStorageInfo.activeProjectId = sidenavname.dataset.listId;
