@@ -1,11 +1,12 @@
-import { LS_PROJECT_KEYS, LS_ACTIVE_PROJECT } from "./dom";
+import { LS_PROJECT_KEYS, LS_ACTIVE_PROJECT, clear } from "./dom";
 
 
 // Initialize varibles project list and active project id
 function retrieveLocalStorageInfo () {
     let projectlist = JSON.parse(localStorage.getItem('project.list')) || [];
     let activeProjectId = JSON.parse(localStorage.getItem('active.project'));
-    return { projectlist, activeProjectId };
+    let todolist = [];
+    return { projectlist, activeProjectId, todolist };
 }
 
 const getLocalStorageInfo = retrieveLocalStorageInfo(); 
@@ -17,4 +18,50 @@ const newProject = (name) => {
     return {name, id, tasks}
 }
 
-export { newProject, getLocalStorageInfo };
+function isHomeOption () {
+    if (getLocalStorageInfo.activeProjectId < 10) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function populateTodoList () {
+    clearTodoList();
+    getLocalStorageInfo.projectlist.forEach(project => {
+        project.tasks.forEach(task => getLocalStorageInfo.todolist.push(task));
+    });
+}
+
+function clearTodoList () {
+    while (getLocalStorageInfo.todolist.length > 0) {
+        getLocalStorageInfo.todolist.pop();
+    }
+}
+
+function searchForTodo (todoid) {
+    let newTodo;
+    getLocalStorageInfo.projectlist.forEach(project => {
+        project.tasks.forEach(task => {
+            if (task.id === todoid) {
+                newTodo = task;
+            }
+        });
+    });
+    return newTodo;
+}
+
+function searchForProject (todo) {
+    let currentProject;
+    getLocalStorageInfo.projectlist.forEach(project => {
+        project.tasks.forEach(task => {
+            if (task.id === todo.id) {
+                currentProject = project;
+            }
+        })
+    })
+    return currentProject;
+}
+
+export { newProject, getLocalStorageInfo, isHomeOption, populateTodoList, searchForTodo, searchForProject };

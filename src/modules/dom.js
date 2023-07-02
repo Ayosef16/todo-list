@@ -1,4 +1,4 @@
-import { getLocalStorageInfo } from "./project";
+import { getLocalStorageInfo, isHomeOption } from "./project";
 
 // Define local storage keys
 const LS_PROJECT_KEYS = 'project.list';
@@ -36,7 +36,10 @@ function renderTodoContainer() {
     const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
     console.log(activeProject);
     // Check when the active project is inbox, today, week
-    if (activeProject === undefined) return;
+    if (activeProject === undefined) {
+        
+        return;
+    }
     projectTitle.textContent = activeProject.name;
     renderTodoCount(activeProject);
     renderTodo(activeProject);
@@ -44,12 +47,17 @@ function renderTodoContainer() {
 
 // Make a function to render todo count
 function renderTodoCount(project) {
-    const incompleteTodo = project.tasks.filter(task => !task.checklist).length;
-    if (incompleteTodo === 1) {
-        todoCount.textContent = `${incompleteTodo} task left`;
+    // Check if it's inbox, today or week
+    if (isHomeOption()) {
+        const incompleteTodo = project.filter(task => !task.checklist).length;
+        const todoString = incompleteTodo === 1 ? 'task' : 'tasks';
+        todoCount.textContent = `${incompleteTodo} ${todoString} left`;
     }
+    // Check for only projects
     else {
-        todoCount.textContent = `${incompleteTodo} tasks left`;
+        const incompleteTodo = project.tasks.filter(task => !task.checklist).length;
+        const todoString = incompleteTodo === 1 ? 'task' : 'tasks';
+        todoCount.textContent = `${incompleteTodo} ${todoString} left`;
     }
 }
 
@@ -66,6 +74,19 @@ function renderTodo(project) {
         todoContainer.appendChild(newTask);
     })
 }
+
+// Make a function to render all todos from a list
+function renderInboxTodos (list) {
+    list.forEach(task => {
+        const newTask = document.importNode(todoTemplate.content, true);
+        const checkbox = newTask.querySelector('input');
+        checkbox.id = task.id;
+        checkbox.checked = task.checklist;
+        const label = newTask.querySelector('label');
+        label.htmlFor = task.id;
+        label.append(task.title);
+        todoContainer.appendChild(newTask);
+})};
 
 // Make a function to clear, render projects and render task
 function render() {
@@ -87,4 +108,4 @@ function clear(name) {
 }
 
 
-export { render, saveProject, clear, renderTodoCount, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };
+export { render, saveProject, clear, renderTodoCount, renderInboxTodos, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };

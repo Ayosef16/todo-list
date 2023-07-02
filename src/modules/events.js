@@ -1,5 +1,5 @@
-import { saveProject, render, renderTodoCount } from "./dom";
-import { newProject, getLocalStorageInfo } from "./project";
+import { saveProject, render, renderTodoCount, renderInboxTodos } from "./dom";
+import { newProject, getLocalStorageInfo, populateTodoList, searchForTodo, searchForProject } from "./project";
 import { newTodo } from "./todo";
 
 // Make a function to create event listeners
@@ -15,17 +15,16 @@ function createEvents() {
     const buttonDeleteProject = document.querySelector('#btn-delete-project');
     const buttonClearTodo = document.querySelector('#btn-clear-todo');
     const projectTitle = document.querySelector('#js-project-title');
+    const inbox = document.querySelector('#inbox-option');
 
     // Handle project form
     projectForm.addEventListener('submit', (event) => {
         event.preventDefault();
         let project = newProject(projectForm.project.value);
-        console.log(project);
         getLocalStorageInfo.projectlist.push(project);
         projectForm.project.value = '';
         saveProject();
         render();
-        console.log(getLocalStorageInfo.projectlist);
     });
 
     // Show todo form when click on button
@@ -63,10 +62,20 @@ function createEvents() {
     todoList.addEventListener('change', (event) => {
         if (event.target.tagName.toLowerCase() === 'input') {
             const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
-            const currentTask = activeProject.tasks.find(todo => todo.id === event.target.id);
-            currentTask.checklist = event.target.checked;
-            saveProject();
-            renderTodoCount(activeProject);
+            // Check for home options
+            if (activeProject === undefined) {
+                const currentTask = searchForTodo(event.target.id);
+                currentTask.checklist = event.target.checked;
+                saveProject();
+                renderTodoCount(getLocalStorageInfo.todolist);
+            }
+            // Check for projects
+            else {
+                const currentTask = activeProject.tasks.find(todo => todo.id === event.target.id);
+                currentTask.checklist = event.target.checked;
+                saveProject();
+                renderTodoCount(activeProject);
+            }
         }
     })
 
@@ -112,10 +121,31 @@ function createEvents() {
     // Event for clearing todo task mark as complete
     buttonClearTodo.addEventListener('click', () => {
         const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
-        activeProject.tasks = activeProject.tasks.filter(task => !task.checklist);
-        saveProject();
-        render();
-    })
+        if (activeProject === undefined) {
+            populateTodoList();
+            const newTodoList = getLocalStorageInfo.todolist.filter(task => task.checklist);
+            newTodoList.forEach(task => {
+                const currentProject = searchForProject(task);
+                currentProject.tasks = currentProject.tasks.filter(todo => todo.id !== task.id);
+            })
+            saveProject();
+            render();
+        }
+        else {
+            activeProject.tasks = activeProject.tasks.filter(task => !task.checklist);
+            saveProject();
+            render();
+        }
+    });
+
+    // Add an event listener for showing every todo
+    inbox.addEventListener('click', () => {
+        populateTodoList();
+        const allTodos = getLocalStorageInfo.todolist;
+        console.log(allTodos);
+        renderInboxTodos(allTodos);
+        renderTodoCount(allTodos);
+    });
 }
 
 export default createEvents;
