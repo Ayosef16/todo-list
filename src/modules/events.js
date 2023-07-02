@@ -1,4 +1,4 @@
-import { saveProject, render, renderTodoCount, renderInboxTodos } from "./dom";
+import { saveProject, render, renderTodoCount, renderInboxTodos, renderTodoContainer } from "./dom";
 import { newProject, getLocalStorageInfo, populateTodoList, searchForTodo, searchForProject } from "./project";
 import { newTodo } from "./todo";
 
@@ -141,10 +141,10 @@ function createEvents() {
     // Add an event listener for showing every todo
     inbox.addEventListener('click', () => {
         populateTodoList();
-        const allTodos = getLocalStorageInfo.todolist;
-        console.log(allTodos);
-        renderInboxTodos(allTodos);
-        renderTodoCount(allTodos);
+        // const allTodos = getLocalStorageInfo.todolist;
+        // renderInboxTodos(allTodos);
+        // renderTodoCount(allTodos);
+        renderTodoContainer();
     });
 }
 

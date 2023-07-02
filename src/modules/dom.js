@@ -1,4 +1,4 @@
-import { getLocalStorageInfo, isHomeOption } from "./project";
+import { getLocalStorageInfo, isHomeOption, populateTodoList } from "./project";
 
 // Define local storage keys
 const LS_PROJECT_KEYS = 'project.list';
@@ -11,6 +11,7 @@ const todoContainer = document.querySelector('#todo-container');
 const todoCount = document.querySelector('#todo-count');
 const projectTitle = document.querySelector('#js-project-title');
 const todoTemplate = document.querySelector('#todo-template');
+const inbox = document.querySelector('#inbox-option');
 
 // Make a function to render the new project to the website
 function renderProject() {
@@ -37,7 +38,20 @@ function renderTodoContainer() {
     console.log(activeProject);
     // Check when the active project is inbox, today, week
     if (activeProject === undefined) {
-        
+        switch (getLocalStorageInfo.activeProjectId) {
+            case '1':
+                projectTitle.textContent = 'Inbox';
+                inbox.classList.add('active-project');
+                populateTodoList();
+                renderInboxTodos(getLocalStorageInfo.todolist);
+                renderTodoCount(getLocalStorageInfo.todolist);
+                break;
+            case '2':
+                projectTitle.textContent = 'Today';
+                break;
+            case '3':
+                projectTitle.textContent = 'Week';
+        }
         return;
     }
     projectTitle.textContent = activeProject.name;
@@ -108,4 +122,4 @@ function clear(name) {
 }
 
 
-export { render, saveProject, clear, renderTodoCount, renderInboxTodos, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };
+export { render, saveProject, clear, renderTodoCount, renderInboxTodos, renderTodoContainer, LS_PROJECT_KEYS, LS_ACTIVE_PROJECT };
