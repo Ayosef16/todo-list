@@ -162,8 +162,8 @@ body {
 }   
 
 .btn-task {
-    right: 2em;
-    bottom: -1em;
+    right: 1em;
+    bottom: 1em;
 }
 
 .btn-confirm-task,
@@ -196,11 +196,13 @@ body {
     --todo-spacing: 2rem;
 
     grid-area: task;
+    display: grid;
+    grid-template-rows: auto 1fr;
     background: var(--white);
     color: var(--black);
     margin-top: var(--body-spacing);
     margin-bottom: var(--body-spacing);
-    padding-bottom: calc(var(--body-spacing) + .5em);
+    position: relative;
 }
 
 .todo-header {
@@ -220,7 +222,8 @@ body {
 .todo-body {
     padding: var(--todo-spacing);
     position: relative;
-    min-height: calc(100% - 105px);
+    overflow: auto;
+    max-height: 500px;
 }
 
 input[type="checkbox"] {
@@ -232,6 +235,10 @@ input[type="checkbox"] {
     position: relative;
     display: flex;
     justify-content: space-between;
+}
+
+.task:last-child {
+    margin-bottom: 1.5em;
 }
 
 .task label {
@@ -316,7 +323,7 @@ input[type="checkbox"]:checked + label::after {
     position: absolute;
     width: 100%;
     left: 0;
-    bottom: -6.5em;
+    bottom: -2em;
     color: var(--white);
 }
 
