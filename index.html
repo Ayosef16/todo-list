@@ -70,20 +70,20 @@
         <div class="new-task-title">New Task</div>
         <div class="input-container">
             <label for="title">Title:</label>
-            <input id="title" name="title" placeholder="Choose a title" type="text">
+            <input id="title" name="title" placeholder="Choose a title" type="text" required>
         </div>
         <div class="input-container">
             <label for="description">Description</label>
-            <textarea id="description" name="description" placeholder="Describe todo item..."></textarea>
+            <textarea id="description" name="description" placeholder="Describe todo item..." required></textarea>
         </div>
         <div class="input-container">
             <label for="duedate">DueDate</label>
-            <input id="duedate" name="duedate" placeholder="Expiring date" type="date">
+            <input id="duedate" name="duedate" placeholder="Expiring date" type="date" required>
         </div>
         <div class="input-container">
             <label for="priority">Priority</label>
             <div class="custom-select">
-                <select name="priority" id="priority">
+                <select name="priority" id="priority" required>
                     <option disabled selected>Select</option>
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
