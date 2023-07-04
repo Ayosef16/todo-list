@@ -14,6 +14,7 @@ const projectTitle = document.querySelector('#js-project-title');
 const todoTemplate = document.querySelector('#todo-template');
 const inbox = document.querySelector('#inbox-option');
 const today = document.querySelector('#today-option');
+const week = document.querySelector('#week-option');
 const buttonDeleteProject = document.querySelector('#btn-delete-project');
 const buttonTask = document.querySelector('.btn-task');
 
@@ -36,10 +37,7 @@ function renderProject() {
 function renderTodoContainer() {
     // Get current active project
     clear(todoContainer);
-    console.log(getLocalStorageInfo.projectlist);
-    console.log(getLocalStorageInfo.activeProjectId);
     const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
-    console.log(activeProject);
     // Check when the active project is inbox, today, week
     if (activeProject === undefined) {
         populateTodoList();
@@ -59,6 +57,11 @@ function renderTodoContainer() {
                 break;
             case '3':
                 projectTitle.textContent = 'Week';
+                week.classList.add('active-project');
+                const weekTodos = makeTodoListOption();
+                renderInboxTodos(weekTodos);
+                renderTodoCount(weekTodos);
+                break;
         }
         buttonDeleteProject.style.display = 'none';
         buttonTask.style.display = 'none';

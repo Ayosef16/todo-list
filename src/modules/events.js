@@ -17,6 +17,7 @@ function createEvents() {
     const projectTitle = document.querySelector('#js-project-title');
     const inbox = document.querySelector('#inbox-option');
     const today = document.querySelector('#today-option');
+    const week = document.querySelector('#week-option');
 
     // Handle project form
     projectForm.addEventListener('submit', (event) => {
@@ -88,7 +89,6 @@ function createEvents() {
             buttonDeleteProject.style.display = '';
             todoList.style.display = '';
             getLocalStorageInfo.activeProjectId = event.target.dataset.listId;
-            console.log(getLocalStorageInfo.activeProjectId);
             saveProject();
             render();
         }
@@ -103,7 +103,6 @@ function createEvents() {
         sidenavname.classList.add('active-project');
         projectTitle.textContent = sidenavname.textContent;
         getLocalStorageInfo.activeProjectId = sidenavname.dataset.listId;
-        console.log(getLocalStorageInfo.activeProjectId);
         saveProject();
         render();
     }));
@@ -146,6 +145,11 @@ function createEvents() {
 
     // Add am event listener for today option
     today.addEventListener('click', () => {
+        renderTodoContainer();
+    });
+
+     // Add am event listener for week option
+     week.addEventListener('click', () => {
         renderTodoContainer();
     });
 }

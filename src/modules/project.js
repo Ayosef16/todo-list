@@ -1,5 +1,5 @@
 import { LS_PROJECT_KEYS, LS_ACTIVE_PROJECT, clear } from "./dom";
-import { format } from "date-fns";
+import { format, isThisWeek, parseISO } from "date-fns";
 
 
 // Initialize varibles project list and active project id
@@ -77,7 +77,7 @@ function makeTodoListOption () {
             newTodoList = getLocalStorageInfo.todolist.filter(todo => todo.duedate === format(new Date(), 'yyyy-MM-dd'));
             break;
         case '3':
-            newTodoList = getLocalStorageInfo.todolist;
+            newTodoList = getLocalStorageInfo.todolist.filter(todo => isThisWeek(parseISO(todo.duedate, { weekStartsOn : 1 })));
             break;
     }
     return newTodoList;
