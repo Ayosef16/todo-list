@@ -22,6 +22,7 @@ html {
 
 body {
     margin: 0;
+    height: 100vh;
     font-size: 1.5rem;
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
@@ -30,9 +31,9 @@ body {
     display: grid;
     grid: 
     "header header header header" auto
-    "projects .... task ........" auto
-    "projects .... .... ......." minmax(350px, auto) / 
-    minmax(150px, 400px) 1fr minmax(300px, 700px) 4fr
+    "projects .... task ........" 1fr 
+    "footer footer footer footer" auto / 
+    minmax(150px, 400px) 1fr minmax(250px, 700px) 4fr
 }
 
 #header {
@@ -184,6 +185,7 @@ body {
     background: var(--white);
     color: var(--black);
     margin-top: var(--body-spacing);
+    margin-bottom: var(--body-spacing);
     padding-bottom: var(--body-spacing);
 }
 
@@ -204,6 +206,7 @@ body {
 .todo-body {
     padding: var(--todo-spacing);
     position: relative;
+    min-height: calc(100% - 105px);
 }
 
 input[type="checkbox"] {
@@ -292,12 +295,10 @@ input[type="checkbox"]:checked + label::after {
 }
 
 #footer {
-    position: absolute;
+    grid-area: footer;
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 0;
-    width: 100%;
     background: var(--grey);
     font-size: 1rem;
 }
