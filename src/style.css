@@ -320,6 +320,23 @@ input[type="checkbox"]:checked + label::after {
     color: var(--white);
 }
 
+.duedate-container {
+    background: var(--light-grey);
+    opacity: .7;
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--purple);
+    padding: 3px;
+    width: 5.5em;
+    text-align: center;
+}
+
+.task-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #footer {
     grid-area: footer;
     display: flex;

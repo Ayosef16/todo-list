@@ -1,5 +1,5 @@
 import { getLocalStorageInfo, isHomeOption, populateTodoList, makeTodoListOption } from "./project";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 // Define local storage keys
 const LS_PROJECT_KEYS = 'project.list';
@@ -102,6 +102,8 @@ function renderTodo(project) {
         editIcon.dataset.todoId = task.id;
         const deleteIcon = newTask.querySelector('.delete-icon');
         deleteIcon.dataset.todoId = task.id;
+        const duedate = newTask.querySelector('.duedate-container');
+        duedate.textContent = format(parseISO(task.duedate), 'do MMM yy');
         todoContainer.appendChild(newTask);
     })
 }
@@ -120,6 +122,8 @@ function renderInboxTodos (list) {
         editIcon.dataset.todoId = task.id;
         const deleteIcon = newTask.querySelector('.delete-icon');
         deleteIcon.dataset.todoId = task.id;
+        const duedate = newTask.querySelector('.duedate-container');
+        duedate.textContent = format(parseISO(task.duedate), 'do MMM yy');
         todoContainer.appendChild(newTask);
 })};
 
