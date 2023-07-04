@@ -36,6 +36,17 @@ body {
     minmax(150px, 400px) 1fr minmax(250px, 700px) 4fr
 }
 
+.overlay {
+    display: none;
+    background: rgba(0 ,0, 0, .5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+}
+
 #header {
     grid-area: header;
     font-size: calc(3vw + 2rem);
@@ -325,6 +336,7 @@ input[type="checkbox"]:checked + label::after {
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
+    z-index: 101;
 }
 
 #todo-form .new-task-title {

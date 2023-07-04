@@ -1,6 +1,7 @@
 import { saveProject, render, renderTodoCount, renderInboxTodos, renderTodoContainer } from "./dom";
 import { newProject, getLocalStorageInfo, populateTodoList, searchForTodo, searchForProject, makeTodoListOption } from "./project";
 import { newTodo } from "./todo";
+import { format } from "date-fns";
 
 // Make a function to create event listeners
 function createEvents() {
@@ -18,6 +19,11 @@ function createEvents() {
     const inbox = document.querySelector('#inbox-option');
     const today = document.querySelector('#today-option');
     const week = document.querySelector('#week-option');
+    const duedate = document.querySelector('#duedate');
+    const overlay = document.querySelector('.overlay');
+
+    // Define a min date for the date picket
+    duedate.min = format(new Date(), 'yyyy-MM-dd');
 
     // Handle project form
     projectForm.addEventListener('submit', (event) => {
@@ -32,6 +38,7 @@ function createEvents() {
     // Show todo form when click on button
     buttonTask.addEventListener('click', () => {
         todoForm.style.visibility = 'visible';
+        overlay.style.display = 'block';
     });
 
     // Event to handle todo form
@@ -44,6 +51,7 @@ function createEvents() {
         activeProject.tasks.push(task);
         console.log(activeProject);
         todoForm.style.visibility = 'hidden';
+        overlay.style.display = 'none';
         todoForm.title.value = '';
         todoForm.description.value = '';
         todoForm.duedate.value = '';
@@ -57,6 +65,7 @@ function createEvents() {
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             todoForm.style.visibility = 'hidden';
+            overlay.style.display = 'none';
         }
     });
 
