@@ -1,4 +1,5 @@
 import { LS_PROJECT_KEYS, LS_ACTIVE_PROJECT, clear } from "./dom";
+import { format } from "date-fns";
 
 
 // Initialize varibles project list and active project id
@@ -64,4 +65,22 @@ function searchForProject (todo) {
     return currentProject;
 }
 
-export { newProject, getLocalStorageInfo, isHomeOption, populateTodoList, searchForTodo, searchForProject };
+// Make a function to retrieve the todo list for side nav options
+function makeTodoListOption () {
+    populateTodoList();
+    let newTodoList;
+    switch (getLocalStorageInfo.activeProjectId) {
+        case '1':
+            newTodoList = getLocalStorageInfo.todolist;
+            break;
+        case '2':
+            newTodoList = getLocalStorageInfo.todolist.filter(todo => todo.duedate === format(new Date(), 'yyyy-MM-dd'));
+            break;
+        case '3':
+            newTodoList = getLocalStorageInfo.todolist;
+            break;
+    }
+    return newTodoList;
+};
+
+export { newProject, getLocalStorageInfo, isHomeOption, populateTodoList, searchForTodo, searchForProject, makeTodoListOption };

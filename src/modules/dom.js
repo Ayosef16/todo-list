@@ -1,4 +1,5 @@
-import { getLocalStorageInfo, isHomeOption, populateTodoList } from "./project";
+import { getLocalStorageInfo, isHomeOption, populateTodoList, makeTodoListOption } from "./project";
+import { format } from "date-fns";
 
 // Define local storage keys
 const LS_PROJECT_KEYS = 'project.list';
@@ -12,6 +13,9 @@ const todoCount = document.querySelector('#todo-count');
 const projectTitle = document.querySelector('#js-project-title');
 const todoTemplate = document.querySelector('#todo-template');
 const inbox = document.querySelector('#inbox-option');
+const today = document.querySelector('#today-option');
+const buttonDeleteProject = document.querySelector('#btn-delete-project');
+const buttonTask = document.querySelector('.btn-task');
 
 // Make a function to render the new project to the website
 function renderProject() {
@@ -38,20 +42,26 @@ function renderTodoContainer() {
     console.log(activeProject);
     // Check when the active project is inbox, today, week
     if (activeProject === undefined) {
+        populateTodoList();
         switch (getLocalStorageInfo.activeProjectId) {
             case '1':
                 projectTitle.textContent = 'Inbox';
                 inbox.classList.add('active-project');
-                populateTodoList();
                 renderInboxTodos(getLocalStorageInfo.todolist);
                 renderTodoCount(getLocalStorageInfo.todolist);
                 break;
             case '2':
                 projectTitle.textContent = 'Today';
+                today.classList.add('active-project');
+                const todayTodos = makeTodoListOption();
+                renderInboxTodos(todayTodos);
+                renderTodoCount(todayTodos);
                 break;
             case '3':
                 projectTitle.textContent = 'Week';
         }
+        buttonDeleteProject.style.display = 'none';
+        buttonTask.style.display = 'none';
         return;
     }
     projectTitle.textContent = activeProject.name;

@@ -1,5 +1,5 @@
 import { saveProject, render, renderTodoCount, renderInboxTodos, renderTodoContainer } from "./dom";
-import { newProject, getLocalStorageInfo, populateTodoList, searchForTodo, searchForProject } from "./project";
+import { newProject, getLocalStorageInfo, populateTodoList, searchForTodo, searchForProject, makeTodoListOption } from "./project";
 import { newTodo } from "./todo";
 
 // Make a function to create event listeners
@@ -16,6 +16,7 @@ function createEvents() {
     const buttonClearTodo = document.querySelector('#btn-clear-todo');
     const projectTitle = document.querySelector('#js-project-title');
     const inbox = document.querySelector('#inbox-option');
+    const today = document.querySelector('#today-option');
 
     // Handle project form
     projectForm.addEventListener('submit', (event) => {
@@ -67,7 +68,7 @@ function createEvents() {
                 const currentTask = searchForTodo(event.target.id);
                 currentTask.checklist = event.target.checked;
                 saveProject();
-                renderTodoCount(getLocalStorageInfo.todolist);
+                renderTodoCount(makeTodoListOption());
             }
             // Check for projects
             else {
@@ -140,10 +141,11 @@ function createEvents() {
 
     // Add an event listener for showing every todo
     inbox.addEventListener('click', () => {
-        populateTodoList();
-        // const allTodos = getLocalStorageInfo.todolist;
-        // renderInboxTodos(allTodos);
-        // renderTodoCount(allTodos);
+        renderTodoContainer();
+    });
+
+    // Add am event listener for today option
+    today.addEventListener('click', () => {
         renderTodoContainer();
     });
 }
