@@ -70,14 +70,7 @@ body {
     line-height: 1.7;
     font-weight: 300;
     font-size: 1.4rem;
-}
-
-.side-nav-list {
     list-style: none;
-}
-
-.project-list { 
-    list-style: circle;
 }
 
 .side-nav-name, .project-name {
@@ -91,11 +84,14 @@ body {
 .side-nav-name:hover, .project-name:hover {
     transform: scale(1.05);
     opacity: .7;
+    color: var(--purple);
 }
 
-.project-title {
+.project-title, .home-title {
     margin: 0;
     color: var(--black);
+    font-weight: 900;
+    font-size: 2rem;
 }
 
 .active-project { 
@@ -143,6 +139,7 @@ body {
     font-weight: 900;
     margin-right: .25em;
     transition: opacity 250ms ease-in;
+    color: var(--purple);
 }
 
 .btn-project:hover {
@@ -150,7 +147,8 @@ body {
 }
 
 .btn-task,
-.btn-confirm-task {
+.btn-confirm-task,
+.btn-confirm-edit {
     background: var(--purple);
     border: var(--purple);
     color: var(--white);
@@ -168,9 +166,14 @@ body {
     bottom: -1em;
 }
 
-.btn-confirm-task {
+.btn-confirm-task,
+.btn-confirm-edit {
     right: 15px;
     bottom: 15px;
+}
+
+.btn-confirm-edit {
+    display: none;
 }
 
 .btn-task:hover,
@@ -197,7 +200,7 @@ body {
     color: var(--black);
     margin-top: var(--body-spacing);
     margin-bottom: var(--body-spacing);
-    padding-bottom: var(--body-spacing);
+    padding-bottom: calc(var(--body-spacing) + .5em);
 }
 
 .todo-header {
@@ -227,6 +230,8 @@ input[type="checkbox"] {
 
 .task {
     position: relative;
+    display: flex;
+    justify-content: space-between;
 }
 
 .task label {
@@ -294,6 +299,16 @@ input[type="checkbox"]:checked + label::after {
     transform-origin: left;
 }
 
+.edit-icon, .delete-icon {
+    transition: all 100ms ease-in-out;
+}
+
+.edit-icon:hover, .delete-icon:hover {
+    cursor: pointer;
+    color: var(--purple);
+    transform: scale(1.1);
+}
+
 .delete-container {
     display: flex;
     justify-content: space-evenly;
@@ -301,7 +316,7 @@ input[type="checkbox"]:checked + label::after {
     position: absolute;
     width: 100%;
     left: 0;
-    bottom: -5.5em;
+    bottom: -6.5em;
     color: var(--white);
 }
 
@@ -357,7 +372,6 @@ input[type="checkbox"]:checked + label::after {
 #todo-form .input-container label {
     width: 200px;
     font-size: 1em;
-    font-weight: 500;
 }
 
 #todo-form .input-container input,

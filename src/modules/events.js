@@ -13,6 +13,8 @@ function createEvents() {
     const projectList = document.querySelector('.project-list');
     const sideNavList = document.querySelectorAll('.side-nav-name');
     const buttonTask = document.querySelector('.btn-task');
+    const buttonConfirmTask = document.querySelector('.btn-confirm-task');
+    const buttonConfirmEdit = document.querySelector('.btn-confirm-edit');
     const buttonDeleteProject = document.querySelector('#btn-delete-project');
     const buttonClearTodo = document.querySelector('#btn-clear-todo');
     const projectTitle = document.querySelector('#js-project-title');
@@ -39,6 +41,8 @@ function createEvents() {
     buttonTask.addEventListener('click', () => {
         todoForm.style.visibility = 'visible';
         overlay.style.display = 'block';
+        buttonConfirmEdit.style.display = 'none';
+        buttonConfirmTask.style.display = 'block';
     });
 
     // Event to handle todo form
@@ -89,6 +93,43 @@ function createEvents() {
             }
         }
     })
+
+    // Add an event to edit and delete todos
+    todoList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('edit-icon')) {
+            populateTodoList();
+            const newTodo = getLocalStorageInfo.todolist.find(todo => todo.id === event.target.dataset.todoId);
+            todoForm.style.visibility = 'visible';
+            overlay.style.display = 'block';
+            buttonConfirmTask.style.display = 'none';
+            buttonConfirmEdit.style.display = 'block';
+            buttonConfirmEdit.dataset.currentTodoId = event.target.dataset.todoId;
+            todoForm.title.value = newTodo.title;
+            todoForm.description.value = newTodo.description;
+            todoForm.duedate.value = newTodo.duedate;
+            todoForm.priority.value = newTodo.priority;
+            todoForm.notes.value = newTodo.notes;
+        }
+    })
+
+    // Edit the task into the projects and memory
+    buttonConfirmEdit.addEventListener('click', () => {
+        todoForm.style.visibility = 'hidden';
+        overlay.style.display = 'none';
+        const newTodo = searchForTodo(buttonConfirmEdit.dataset.currentTodoId);
+        newTodo.title = todoForm.title.value;
+        newTodo.description = todoForm.description.value;
+        newTodo.duedate = todoForm.duedate.value;
+        newTodo.priority = todoForm.priority.value;
+        newTodo.notes = todoForm.notes.value;
+        todoForm.title.value = '';
+        todoForm.description.value = '';
+        todoForm.duedate.value = '';
+        todoForm.priority.value = 'Select';
+        todoForm.notes.value = '';
+        saveProject();
+        render();
+    });
 
     // Add active project status to the project list
     projectList.addEventListener('click', (event) => {

@@ -98,6 +98,10 @@ function renderTodo(project) {
         const label = newTask.querySelector('label');
         label.htmlFor = task.id;
         label.append(task.title);
+        const editIcon = newTask.querySelector('.edit-icon');
+        editIcon.dataset.todoId = task.id;
+        const deleteIcon = newTask.querySelector('.delete-icon');
+        deleteIcon.dataset.todoId = task.id;
         todoContainer.appendChild(newTask);
     })
 }
@@ -112,6 +116,10 @@ function renderInboxTodos (list) {
         const label = newTask.querySelector('label');
         label.htmlFor = task.id;
         label.append(task.title);
+        const editIcon = newTask.querySelector('.edit-icon');
+        editIcon.dataset.todoId = task.id;
+        const deleteIcon = newTask.querySelector('.delete-icon');
+        deleteIcon.dataset.todoId = task.id;
         todoContainer.appendChild(newTask);
 })};
 
