@@ -3,4 +3,4 @@
 #### Description: This app works as a todo tracker, you can create and delete projects, add, edit, and eliminate todos on each project. 
 #### Tools: This is a website builded using html, css, javascript and webpack
 
-#### Check website on [Github] (https://ayosef16.github.io/todo-list/).
+#### Check website on [Github](https://ayosef16.github.io/todo-list/).
