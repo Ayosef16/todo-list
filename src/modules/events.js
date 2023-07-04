@@ -48,12 +48,14 @@ function createEvents() {
     // Event to handle todo form
     todoForm.addEventListener('submit', (event) => {
         event.preventDefault();
+        // Check that form value is not empty
+        if (todoForm.title.value === '') return;
+        if (todoForm.description.value === '') return;
+        if (todoForm.duedate.value === '') return;
+        if (todoForm.priority.value === 'Select') return;
         const task = newTodo(todoForm.title.value, todoForm.description.value, todoForm.duedate.value, todoForm.priority.value, todoForm.notes.value);
         const activeProject = getLocalStorageInfo.projectlist.find(project => project.id === getLocalStorageInfo.activeProjectId);
-        console.log(activeProject);
-        console.log(task);
         activeProject.tasks.push(task);
-        console.log(activeProject);
         todoForm.style.visibility = 'hidden';
         overlay.style.display = 'none';
         todoForm.title.value = '';
@@ -63,6 +65,13 @@ function createEvents() {
         todoForm.notes.value = '';
         saveProject();
         render();
+    });
+
+    // Prevent the todoform from submitting when using enter key
+    todoForm.addEventListener('keypress', (event) => {
+        if (event.keycode === 13) {
+            event.preventDefault();
+        }
     });
 
     // Add support for escape key
@@ -110,10 +119,22 @@ function createEvents() {
             todoForm.priority.value = newTodo.priority;
             todoForm.notes.value = newTodo.notes;
         }
+        else if (event.target.classList.contains('delete-icon')) {
+            const newTodo = searchForTodo(event.target.dataset.todoId);
+            const newProject = searchForProject(newTodo);
+            let temp = newProject.tasks.filter(todo => todo.id !== newTodo.id);
+            newProject.tasks = temp;
+            saveProject();
+            render();
+        }
     })
 
     // Edit the task into the projects and memory
     buttonConfirmEdit.addEventListener('click', () => {
+        if (todoForm.title.value === '') return;
+        if (todoForm.description.value === '') return;
+        if (todoForm.duedate.value === '') return;
+        if (todoForm.priority.value === 'Select') return;
         todoForm.style.visibility = 'hidden';
         overlay.style.display = 'none';
         const newTodo = searchForTodo(buttonConfirmEdit.dataset.currentTodoId);
